@@ -9,10 +9,13 @@ function Model({ url }) {
   return <primitive object={scene} dispose={null} />;
 }
 
-export default function Viewer() {
   const [autoRotate, setAutoRotate] = useState(true);
   const viewerRef = useRef(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  const [fov, setFov] = useState(40);
+  const [moveSpeed, setMoveSpeed] = useState(1.0);
+  const [rotateSpeed, setRotateSpeed] = useState(1.0);
 
   const handleFullscreen = () => {
     const elem = viewerRef.current;
@@ -48,7 +51,7 @@ export default function Viewer() {
         <Canvas
           shadows
           dpr={[1, 2]}
-          camera={{ position: [0, 0, 2.5], fov: 45 }}
+          camera={{ position: [0, 2, 5], fov }}
           className={styles.canvas}
           gl={{ alpha: true }}
         >
@@ -73,9 +76,11 @@ export default function Viewer() {
           <OrbitControls
             enablePan={true}
             autoRotate={autoRotate}
-            autoRotateSpeed={0.8}
+            autoRotateSpeed={rotateSpeed}
             minDistance={1}
             maxDistance={100}
+            zoomSpeed={moveSpeed}
+            rotateSpeed={rotateSpeed}
           />
         </Canvas>
       </div>
@@ -95,6 +100,68 @@ export default function Viewer() {
         >
           {isFullscreen ? 'Salir pantalla completa' : 'Pantalla completa'}
         </button>
+        <button
+          onClick={() => setShowSettings((v) => !v)}
+          style={{ marginLeft: '1rem', padding: '0.3rem 1rem', borderRadius: '0.7rem', border: 'none', background: '#444', color: '#fff', cursor: 'pointer' }}
+        >
+          Ajustes
+        </button>
+        {showSettings && (
+          <div style={{
+            position: 'absolute',
+            top: '2.5rem',
+            right: 0,
+            background: '#222',
+            color: '#fff',
+            borderRadius: '1rem',
+            boxShadow: '0 2px 16px rgba(0,0,0,0.18)',
+            padding: '1rem',
+            zIndex: 10,
+            minWidth: '220px',
+          }}>
+            <div style={{ marginBottom: '0.7rem' }}>
+              <label>FOV:&nbsp;
+                <input
+                  type="range"
+                  min={20}
+                  max={100}
+                  value={fov}
+                  onChange={e => setFov(Number(e.target.value))}
+                  style={{ width: '100px' }}
+                />
+                <span style={{ marginLeft: 8 }}>{fov}°</span>
+              </label>
+            </div>
+            <div style={{ marginBottom: '0.7rem' }}>
+              <label>Velocidad Zoom:&nbsp;
+                <input
+                  type="range"
+                  min={0.1}
+                  max={5}
+                  step={0.1}
+                  value={moveSpeed}
+                  onChange={e => setMoveSpeed(Number(e.target.value))}
+                  style={{ width: '100px' }}
+                />
+                <span style={{ marginLeft: 8 }}>{moveSpeed}</span>
+              </label>
+            </div>
+            <div>
+              <label>Velocidad Rotación:&nbsp;
+                <input
+                  type="range"
+                  min={0.1}
+                  max={5}
+                  step={0.1}
+                  value={rotateSpeed}
+                  onChange={e => setRotateSpeed(Number(e.target.value))}
+                  style={{ width: '100px' }}
+                />
+                <span style={{ marginLeft: 8 }}>{rotateSpeed}</span>
+              </label>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
