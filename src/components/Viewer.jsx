@@ -165,4 +165,4 @@ function Model({ url }) {
       </div>
     </div>
   );
-}
+
