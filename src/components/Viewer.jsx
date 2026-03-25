@@ -40,7 +40,7 @@ export default function Viewer() {
             />
           </Suspense>
           <OrbitControls
-            enablePan={false}
+            enablePan={true}
             autoRotate={autoRotate}
             autoRotateSpeed={0.8}
             minDistance={1}
