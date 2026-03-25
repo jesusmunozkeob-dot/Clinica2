@@ -44,7 +44,7 @@ export default function Viewer() {
             autoRotate={autoRotate}
             autoRotateSpeed={0.8}
             minDistance={1}
-            maxDistance={6}
+            maxDistance={20}
           />
         </Canvas>
       </div>
