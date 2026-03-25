@@ -9,6 +9,7 @@ function Model({ url }) {
   return <primitive object={scene} dispose={null} />;
 }
 
+export default function Viewer() {
   const [autoRotate, setAutoRotate] = useState(true);
   const viewerRef = useRef(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -161,8 +162,8 @@ function Model({ url }) {
               </label>
             </div>
           </div>
-        )}
+          )}
+        </div>
       </div>
-    </div>
-  );
-
+    );
+  }
