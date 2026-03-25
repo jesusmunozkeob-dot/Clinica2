@@ -13,12 +13,13 @@ export default function Viewer() {
   const [autoRotate, setAutoRotate] = useState(true);
   return (
     <div className={styles.viewerWrapper}>
-      <div className="canvasContainer">
+      <div className={styles.canvasContainer}>
         <Canvas
           shadows
           dpr={[1, 2]}
           camera={{ position: [0, 0, 2.5], fov: 45 }}
           className={styles.canvas}
+          gl={{ alpha: true }}
         >
           <Suspense
             fallback={
