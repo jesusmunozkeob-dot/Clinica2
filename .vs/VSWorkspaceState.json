@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\public",
+    "\\src",
+    "\\src\\components"
   ],
-  "SelectedNode": "\\index.html",
+  "SelectedNode": "\\src\\components\\Viewer.module.css",
   "PreviewInSolutionExplorer": false
 }

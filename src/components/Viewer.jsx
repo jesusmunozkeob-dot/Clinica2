@@ -13,38 +13,40 @@ export default function Viewer() {
   const [autoRotate, setAutoRotate] = useState(true);
   return (
     <div className={styles.viewerWrapper}>
-      <Canvas
-        shadows
-        dpr={[1, 2]}
-        camera={{ position: [0, 0, 2.5], fov: 45 }}
-        className={styles.canvas}
-      >
-        <Suspense
-          fallback={
-            <Html center>
-              <div className={styles.loader}>Cargando modelo...</div>
-            </Html>
-          }
+      <div className="canvasContainer">
+        <Canvas
+          shadows
+          dpr={[1, 2]}
+          camera={{ position: [0, 0, 2.5], fov: 45 }}
+          className={styles.canvas}
         >
-          <ambientLight intensity={0.5} />
-          <Environment preset="city" background={false} />
-          <Model url="/model.glb" />
-          <ContactShadows
-            position={[0, -0.8, 0]}
-            opacity={0.4}
-            scale={5}
-            blur={2.5}
-            far={1.2}
+          <Suspense
+            fallback={
+              <Html center>
+                <div className={styles.loader}>Cargando modelo...</div>
+              </Html>
+            }
+          >
+            <ambientLight intensity={0.5} />
+            <Environment preset="city" background={false} />
+            <Model url="/model.glb" />
+            <ContactShadows
+              position={[0, -0.8, 0]}
+              opacity={0.4}
+              scale={5}
+              blur={2.5}
+              far={1.2}
+            />
+          </Suspense>
+          <OrbitControls
+            enablePan={false}
+            autoRotate={autoRotate}
+            autoRotateSpeed={0.8}
+            minDistance={1}
+            maxDistance={6}
           />
-        </Suspense>
-        <OrbitControls
-          enablePan={false}
-          autoRotate={autoRotate}
-          autoRotateSpeed={0.8}
-          minDistance={1}
-          maxDistance={6}
-        />
-      </Canvas>
+        </Canvas>
+      </div>
       <div className={styles.autorotateToggle}>
         <label>
           <input
